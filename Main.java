@@ -2,16 +2,20 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        // aqui crearemos juguetes para mostrarlos por pantalla
-        Tipo tipo;
-        tipo= new Tipo("HombreAraña","lego","saltarin");
-
-        Composicion compo;
-        compo= new Composicion(1,2,1,2);
-
-        Juguete juguete;
-        juguete=new Juguete(tipo,compo,123);
-
-        System.out.println(juguete.getCaracteristicas());
+        Juguete juguete = new Juguete.Builder("Bocaa")
+                .setCantCabezas(1)
+                .setCantPiernas(2)
+                .setCantTorzos(1)
+                .setCantBrazos(2)
+                .setDureza(5.0)
+                .build();
+        System.out.println("Juguete creado: " + juguete.toString());
+        Juguete juguete2 = new Juguete.Builder("aaaa")
+                .setCantCabezas(1)
+                .setCantPiernas(2)
+                .setCantTorzos(1)
+                .setDureza(5.0)
+                .build();
+        System.out.println("Juguete creado: " + juguete2.toString());
     }
 }
