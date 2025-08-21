@@ -5,7 +5,7 @@ public class Juguete {
     private final int cantTorzos;
     private final int cantBrazos;
     private final double dureza;
-    
+    private final double precio;
 
     public Juguete(Builder builder){
         this.nombre = builder.nombre;
@@ -14,7 +14,10 @@ public class Juguete {
         this.cantTorzos = builder.cantTorzos;
         this.cantBrazos = builder.cantBrazos;
         this.dureza = builder.dureza;
-        
+        this.precio= builder.precio;
+    }
+    public double getPrecio() {
+        return precio;
     }
 
     public String toString() {
@@ -24,7 +27,9 @@ public class Juguete {
                 "\tcantidad de piernas: " + cantPiernas + "\n" +
                 "\tcantidad de torzos: " + cantTorzos + "\n" +
                 "\tcantidad de brazos: " + cantBrazos + "\n"+
-                "\tla dureza es: "+ dureza + "\n";
+                "\tla dureza es: "+ dureza + "\n"
+        +"\t el precio es: "+ precio + "\n";
+
 
         return compo;
     }
@@ -37,32 +42,34 @@ public class Juguete {
         private int cantTorzos;
         private int cantBrazos;
         private double dureza;
+        private final double precio;
 
-        public Builder(String nombre) {
+        public Builder(String nombre,double precio) {
             this.nombre = nombre;
+            this.precio = precio;
         }
 
-        public Builder setCantCabezas(int cantCabezas) {
+        public Builder Cabezas(int cantCabezas) {
             this.cantCabezas = cantCabezas;
             return this;
         }
 
-        public Builder setCantPiernas(int cantPiernas) {
+        public Builder Piernas(int cantPiernas) {
             this.cantPiernas = cantPiernas;
             return this;
         }
 
-        public Builder setCantTorzos(int cantTorzos) {
+        public Builder Torzos(int cantTorzos) {
             this.cantTorzos = cantTorzos;
             return this;
         }
 
-        public Builder setCantBrazos(int cantBrazos) {
+        public Builder Brazos(int cantBrazos) {
             this.cantBrazos = cantBrazos;
             return this;
         }
 
-        public Builder setDureza(double dureza) {
+        public Builder Dureza(double dureza) {
             this.dureza = dureza;
             return this;
         }
