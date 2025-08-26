@@ -1,3 +1,5 @@
+import java.util.concurrent.ForkJoinPool;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -68,24 +70,13 @@ public class Main {
                 .Dureza(15)
                 .build();
         System.out.println("Juguete creado: " + juguete5.toString());
+
         arreglo[92]=juguete5.getPrecio();
 
-        Hilo h1= new Hilo(arreglo,0,34); // el constructor del hilo recibe el arreglo , y que distancia debe recorrer
-        Hilo h2= new Hilo(arreglo,35,69);
-        Hilo h3= new Hilo(arreglo,70,106);
-
-        h1.start(); //arranca el hilo
-        h2.start();
-        h3.start();
-
-        try {
-            h3.sleep(1500); //el hilo 3 espera un poco , para asegurar la finalizacion de los otros hilos
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println("el maximo general es de " + h3.getMaxGlobal() ); //solicito el valor de la variable global de la clase HILO
-
+        double mayor;
+        ForkJoinPool fj= new ForkJoinPool();
+        mayor= fj.invoke(new MayorTask(arreglo, 0, arreglo.length));
+        System.out.println("El mayor es :"+mayor);
     }
 
 
