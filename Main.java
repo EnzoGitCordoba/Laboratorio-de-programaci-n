@@ -47,18 +47,32 @@ public class Main {
                 .build();
         System.out.println("Juguete creado: " + juguete5.toString());
 
-        double [] arreglo= new double[6];
+
+// meto todos los precios de juguetes en un arreglo , para luego compararlos+
+
+        double [] arreglo= new double[106];
         arreglo[0]=juguete.getPrecio();
         arreglo[1]=juguete1.getPrecio();
         arreglo[2]=juguete2.getPrecio();
         arreglo[3]=juguete3.getPrecio();
         arreglo[4]=juguete4.getPrecio();
         arreglo[5]=juguete5.getPrecio();
-        // meto todos los precios de juguetes en un arreglo , para luego compararlos
 
-        Hilo h1= new Hilo(arreglo,0,2); // el constructor del hilo recibe el arreglo , y que distancia debe recorrer
-        Hilo h2= new Hilo(arreglo,2,4);
-        Hilo h3= new Hilo(arreglo,4,6);
+        generarJuguetes2(105,arreglo);
+
+        Juguete juguete6 = new Juguete.Builder("EL JUGUETE MAS CARO", 223135000)
+                .Cabezas(1)
+                .Piernas(2)
+                .Torzos(1)
+                .Brazos(6)
+                .Dureza(15)
+                .build();
+        System.out.println("Juguete creado: " + juguete5.toString());
+        arreglo[92]=juguete5.getPrecio();
+
+        Hilo h1= new Hilo(arreglo,0,34); // el constructor del hilo recibe el arreglo , y que distancia debe recorrer
+        Hilo h2= new Hilo(arreglo,35,69);
+        Hilo h3= new Hilo(arreglo,70,106);
 
         h1.start(); //arranca el hilo
         h2.start();
@@ -73,5 +87,63 @@ public class Main {
         System.out.println("el maximo general es de " + h3.getMaxGlobal() ); //solicito el valor de la variable global de la clase HILO
 
     }
+
+
+
+    public static void generarJuguetes2(int i , double[] arreglo ) {
+// forma recursiva de generacion de juguetes
+        Juguete juguete;
+
+        if(i==5){
+
+            juguete = new Juguete.Builder("replica"+i, i*25000)
+                    .Cabezas(1)
+                    .Piernas(2)
+                    .Torzos(1)
+                    .Brazos(6)
+                    .Dureza(15)
+                    .build();
+
+            arreglo[i]=juguete.getPrecio();
+
+            System.out.println("Los juguetes fueron generados");
+
+        } else {
+            juguete = new Juguete.Builder("replica"+i, i*25000)
+                    .Cabezas(1)
+                    .Piernas(2)
+                    .Torzos(1)
+                    .Brazos(6)
+                    .Dureza(15)
+                    .build();
+
+            arreglo[i]=juguete.getPrecio();
+
+            generarJuguetes2(i-1, arreglo);
+        }
+
+
+
+    }
+/*  public static double[] generarJuguetes() {
+// forma iterativa de generar juguetes
+        Juguete juguete;
+        double [] arreglo1= new double[100];
+
+        for(int i=0;i<100;i++){
+
+            juguete = new Juguete.Builder("replica"+i, i*25000)
+                    .Cabezas(1)
+                    .Piernas(2)
+                    .Torzos(1)
+                    .Brazos(6)
+                    .Dureza(15)
+                    .build();
+
+            arreglo1[i]=juguete.getPrecio();
+        }
+        System.out.println("Los juguetes fueron generados");
+        return arreglo1;
+    }*/
 
 }
