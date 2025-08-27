@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
 
 
+        //Crearemos varios juguetes y mostramos su contenido de forma manual para comprobar el funcionamiento del builder
         Juguete juguete = new Juguete.Builder("Spider Man", 15000)
                 .Cabezas(1)
                 .Piernas(2)
@@ -50,9 +51,9 @@ public class Main {
         System.out.println("Juguete creado: " + juguete5.toString());
 
 
-// meto todos los precios de juguetes en un arreglo , para luego compararlos+
+// metemos el precio de cada juguete dentro de un arreglo para despues poder buscar el mayor
 
-        double [] arreglo= new double[106];
+        double [] arreglo= new double[106];         //6  de estos ya fueron previamente creados
         arreglo[0]=juguete.getPrecio();
         arreglo[1]=juguete1.getPrecio();
         arreglo[2]=juguete2.getPrecio();
@@ -60,9 +61,9 @@ public class Main {
         arreglo[4]=juguete4.getPrecio();
         arreglo[5]=juguete5.getPrecio();
 
-        generarJuguetes2(105,arreglo);
+        generarJuguetes2(105,arreglo); //genero automatico juguetes con precio escalable
 
-        Juguete juguete6 = new Juguete.Builder("EL JUGUETE MAS CARO", 9999999)
+        Juguete juguete6 = new Juguete.Builder("EL JUGUETE MAS CARO", 9999999)      // creo el juguete mas caro , este sera nuestro objetivo a encontrar
                 .Cabezas(1)
                 .Piernas(2)
                 .Torzos(1)
@@ -71,15 +72,15 @@ public class Main {
                 .build();
         System.out.println("Juguete creado: " + juguete6.toString());
 
-        arreglo[92]=juguete6.getPrecio();
+        arreglo[92]=juguete6.getPrecio(); // lo ubico en cualquier lado del arreglo pisando el precio generado previamente
 
-        double mayor;
-        ForkJoinPool fj= new ForkJoinPool();
+        double mayor;               //variable donde guadaremos el mayor precio
+        ForkJoinPool conjuntoDeHilos= new ForkJoinPool();        //creo un forkJoinPool el cual es un conjunto de hilos especiales que implementa el modelo de ejecución divide y vencerás.
 
-        mayor= fj.invoke(new MayorTask(arreglo, 0, arreglo.length));
+        mayor= conjuntoDeHilos.invoke(new MayorTask(arreglo, 0, arreglo.length)); // envio la tarea al conjunto de hilos previamente creado esperando que me devuelva el mayor precio
+                                                                     //la tarea la envio en forma de "hilo" en mayorTask el cual en vez de un run() sobrescribe un compute()
 
-
-        System.out.println("El mayor es :"+mayor);
+        System.out.println("El mayor es :"+mayor); //muestro el mayor precio
     }
 
 
@@ -119,25 +120,4 @@ public class Main {
 
 
     }
-/*  public static double[] generarJuguetes() {
-// forma iterativa de generar juguetes
-        Juguete juguete;
-        double [] arreglo1= new double[100];
-
-        for(int i=0;i<100;i++){
-
-            juguete = new Juguete.Builder("replica"+i, i*25000)
-                    .Cabezas(1)
-                    .Piernas(2)
-                    .Torzos(1)
-                    .Brazos(6)
-                    .Dureza(15)
-                    .build();
-
-            arreglo1[i]=juguete.getPrecio();
-        }
-        System.out.println("Los juguetes fueron generados");
-        return arreglo1;
-    }*/
-
 }

@@ -1,4 +1,5 @@
 public class Juguete {
+    //conjunto de variables que necesita nuestro juguete
     private final String nombre;
     private final int cantCabezas;
     private final int cantPiernas;
@@ -8,6 +9,7 @@ public class Juguete {
     private final double precio;
 
     public Juguete(Builder builder){
+        // este metodo recibira un builder que sera nuestro juguete creado por partes y lo "ensamblara"
         this.nombre = builder.nombre;
         this.cantCabezas = builder.cantCabezas;
         this.cantPiernas = builder.cantPiernas;
@@ -16,11 +18,11 @@ public class Juguete {
         this.dureza = builder.dureza;
         this.precio= builder.precio;
     }
-    public double getPrecio() {
+    public double getPrecio() { //get precio necesario para buscar el mas caro
         return precio;
     }
 
-    public String toString() {
+    public String toString() {      //toString() para mostrar los juguetes
         String compo;
         compo = "La composicion del juguete "+nombre+" es: \n" ;
         compo += "\tcantidad de cabezas: " + cantCabezas + "\n" +
@@ -28,14 +30,15 @@ public class Juguete {
                 "\tcantidad de torzos: " + cantTorzos + "\n" +
                 "\tcantidad de brazos: " + cantBrazos + "\n"+
                 "\tla dureza es: "+ dureza + "\n"
-        +"\t el precio es: "+ precio + "\n";
+        +"\tel precio es: "+ precio + "\n";
 
 
         return compo;
     }
 
     
-    public static class Builder{
+    public static class Builder{    // builder es una subClase de juguete , esta nos permitira creear el juguete por partes
+                                    //por lo que necesitaremos las mismas variables que luego retornaremos
         private final String nombre;
         private int cantCabezas;
         private int cantPiernas;
@@ -44,14 +47,14 @@ public class Juguete {
         private double dureza;
         private final double precio;
 
-        public Builder(String nombre,double precio) {
+        public Builder(String nombre,double precio) { //constructor general del builder , aqui pondremos las variables obligatorias.
             this.nombre = nombre;
             this.precio = precio;
         }
 
         public Builder Cabezas(int cantCabezas) {
-            this.cantCabezas = cantCabezas;
-            return this;
+            this.cantCabezas = cantCabezas; //guardamos en el builder la variable
+            return this;        // luego la retornamos
         }
 
         public Builder Piernas(int cantPiernas) {
