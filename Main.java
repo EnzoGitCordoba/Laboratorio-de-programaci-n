@@ -62,20 +62,23 @@ public class Main {
 
         generarJuguetes2(105,arreglo);
 
-        Juguete juguete6 = new Juguete.Builder("EL JUGUETE MAS CARO", 223135000)
+        Juguete juguete6 = new Juguete.Builder("EL JUGUETE MAS CARO", 9999999)
                 .Cabezas(1)
                 .Piernas(2)
                 .Torzos(1)
                 .Brazos(6)
                 .Dureza(15)
                 .build();
-        System.out.println("Juguete creado: " + juguete5.toString());
+        System.out.println("Juguete creado: " + juguete6.toString());
 
-        arreglo[92]=juguete5.getPrecio();
+        arreglo[92]=juguete6.getPrecio();
 
         double mayor;
         ForkJoinPool fj= new ForkJoinPool();
+
         mayor= fj.invoke(new MayorTask(arreglo, 0, arreglo.length));
+
+
         System.out.println("El mayor es :"+mayor);
     }
 

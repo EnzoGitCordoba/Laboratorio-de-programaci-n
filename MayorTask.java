@@ -5,8 +5,8 @@ public class MayorTask extends RecursiveTask<Double> {
 
     private double[] arreglo;
     private int inicio, fin;
-    private static double maximo = 0;            // variable global de la clase hilo
-    private static final Object lock = new Object();        // lock para la seccion critica
+
+
 
     public MayorTask(double[] arreglo, int inicio, int fin) {        // constructor de los hilos
         this.arreglo = arreglo;
@@ -16,31 +16,36 @@ public class MayorTask extends RecursiveTask<Double> {
 
 
     @Override
-    protected Double compute() {
-
+    protected Double compute() {    //metodo sobreescrito de la clase abstracta recursiveTask
+        double resultado=0;
         double resultadoDerecha=0;
         double resultadoIzquierda=0;
-        if(arreglo.length<8){
 
-            for (int i = inicio; i < fin; i++) {        // PARA AÑADIR RECURSIVE TASK ESTE RECORRIDO PODRIA SER RECURSIVO
-                if (arreglo[i] > maximo) {
-                    maximo = arreglo[i]; // almacena el maximo local (de la parte que recorrio) en maxlocal
-               }
+        if((fin-inicio)<=5){                            // cada "hilo" debera preguntar si su tramo de arreglo es menor a 5
+            double maxLocal = arreglo[inicio];             // si lo es , creamos un maxLocal con la posicion inicial que va a comparar
+
+            for (int i = inicio; i < fin; i++) {        // recorro todo el arreglito para ver el maxLocal
+                if (arreglo[i] > maxLocal) {
+                    maxLocal = arreglo[i];          // Guardo el maxLocal
+                                 }
+
             }
+            resultado=maxLocal;                 //como resultado es lo que voy a retornar , maxLocal= resultado
         }else{
-            int medio = (inicio+fin)/2 ;
-            MayorTask izquierda=new MayorTask(arreglo,inicio,fin);
+                                                    //en el caso de que no haya sido el tramo menor a 5 entraremos a bifurcar la tarea
+            int medio = (inicio+fin)  /2 ;      //dividimos el arreglo en 2
+            MayorTask izquierda=new MayorTask(arreglo,inicio,medio);        //Creamos dos "hilos" los cuales se dividiran la tarea
             MayorTask derecha=new MayorTask(arreglo,medio,fin);
 
 
-            izquierda.fork();
+            izquierda.fork();           // manda a trabajar el hilo izquierdo en paralelo
 
-            resultadoDerecha = derecha.compute();
-            resultadoIzquierda= izquierda.join();
+            resultadoDerecha = derecha.compute();// llama recursivamente a compute con el lado derecho del arreglo y almacena el valor retornado (resultado=MaxLocal)
+            resultadoIzquierda=izquierda.join();       //espera a que termine la tarea izquierda y guarda el valor
 
-            maximo =Math.max(resultadoDerecha,resultadoIzquierda);
+            resultado =Math.max(resultadoDerecha,resultadoIzquierda);       // por cada bifurcacion resultante vamos a comparar y devulver un rexzultado
 
         }
-        return maximo;
+        return resultado;
     }
 }
