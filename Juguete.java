@@ -54,7 +54,8 @@ public class Juguete {
 
         public Builder Cabezas(int cantCabezas) {
             this.cantCabezas = cantCabezas; //guardamos en el builder la variable
-            return this;        // luego la retornamos
+            return this;        // luego la retornamos. Cuando los métodos del Builder retornan this, están devolviendo el propio objeto Builder sobre el que estás trabajando. Eso permite que después de llamar a un método, puedas seguir llamando a otro inmediatamente.
+
         }
 
         public Builder Piernas(int cantPiernas) {
